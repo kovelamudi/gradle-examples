@@ -12,19 +12,32 @@
 buildscript {
     repositories {
         jcenter()
-        
+  /* maven {
+        url "http://192.168.110.100:8081/artifactory/test-artifactory" // The Artifactory (preferably virtual) repository to resolve from
+  /*      credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
+            username = "admin" // Artifactory user name
+            password = "password" // Password or API Key
+        }*/    
     }
     dependencies {
         //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
     }
 }
+//}
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
 }
-
-
+/*repositories{
+ maven {
+        url "http://192.168.110.100:8081/artifactory/test-artifactory" // The Artifactory (preferably virtual) repository to resolve from
+        credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
+            username = "admin" // Artifactory user name
+            password = "password" // Password or API Key
+        }
+    }
+}*/
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -35,11 +48,18 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    compile(group: 'ro.trc.common', name: 'sample', version: '0.0.3')
 }
 
-version = '0.0.1'
+
+version = '0.0.3'
 group = 'ro.trc.common'
 sourceCompatibility = '1.8'
+//buildInfo.build.name='my-super-cool-build'
+//buildInfo.build.number='m2019'
+
+
 
 apply plugin: 'maven-publish'
 publishing {
@@ -82,5 +102,4 @@ artifactory {
 			  }
     }
 }
-
 
